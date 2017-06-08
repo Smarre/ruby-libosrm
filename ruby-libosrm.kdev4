@@ -1,0 +1,4 @@
+[Project]
+CreatedFrom=ruby-libosrm
+Manager=KDevCustomBuildSystem
+Name=ruby-libosrm

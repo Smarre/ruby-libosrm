@@ -1,3 +1,6 @@
+[Buildset]
+BuildItems=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x01\x00\x00\x00\x0b\x00\x00\x00\x00\x01\x00\x00\x00\x18\x00r\x00u\x00b\x00y\x00-\x00l\x00i\x00b\x00o\x00s\x00r\x00m)
+
 [CustomDefinesAndIncludes][ProjectPath0]
 Path=.
 parseAmbiguousAsCPP=true
@@ -10,3 +13,7 @@ Name=Clang
 [CustomDefinesAndIncludes][ProjectPath0][Includes]
 1=/usr/include/ruby-2.3.0/
 2=/usr/include/osrm/
+3=/var/lib/gems/2.3.0/gems/rice-2.1.1/ruby/lib/include
+
+[Project]
+VersionControlSupport=kdevgit

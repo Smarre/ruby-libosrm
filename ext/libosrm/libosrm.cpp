@@ -1,7 +1,9 @@
-#include "rice/Data_Type.hpp"
-#include "rice/Constructor.hpp"
+
+#include "globals.hpp"
 
 using namespace Rice;
+
+#include "ruby_engine_config.hpp"
 
 /*
 #include <osrm/match_parameters.hpp>
@@ -19,13 +21,9 @@ using namespace Rice;
 */
 
 //#include <osrm/osrm.hpp>
-//#include <storage/storage_config.hpp>
-#include "osrm/engine_config.hpp"
+//#include <storage/storage_config.hpp
 
 extern "C"
-void Init_libosrm() {
-  Data_Type<osrm::EngineConfig> rb_cEngineConfig =
-    define_class<osrm::EngineConfig>("LibOSRM::EngineConfig")
-    .define_constructor(Constructor<osrm::EngineConfig>())
-    .define_method("valid?", &osrm::EngineConfig::IsValid);
+void Init_ruby_libosrm() {
+    init_engine_config();
 }

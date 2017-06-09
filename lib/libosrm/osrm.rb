@@ -2,7 +2,16 @@
 class LibOSRM::OSRM
   def initialize
     config = LibOSRM::EngineConfig.new
+    LibOSRM::EngineConfig::Algorithm.each do |x|
+      #puts x.inspect
+    end
+    st = LibOSRM::StorageConfig.new "nyawr"
+    puts st.core_data_path.inspect
+    st.core_data_path = "miu?"
+    puts st.core_data_path.inspect
     config.storage_config = "TODO"
+    puts config.max_locations_trip = 42
+    puts config.max_locations_trip.inspect
     config.use_shared_memory = false
 
     osrm = { "osrm" => config }

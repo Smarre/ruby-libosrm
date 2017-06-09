@@ -11,6 +11,18 @@ using namespace Rice;
 Data_Type<osrm::EngineConfig> rb_cEngineConfig;
 Enum<osrm::EngineConfig::Algorithm> rb_eEngineConfigAlgorithm;
 
+#define EC_ACC_INT(variable) \
+    Object EngineConfig_##variable##_get(Object self) { \
+        Data_Object<osrm::EngineConfig> c(self, rb_cEngineConfig); \
+        return c->variable; \
+    }\
+    \
+    Object EngineConfig_##variable##_set(Object self, Object value) { \
+        Data_Object<osrm::EngineConfig> c(self, rb_cEngineConfig); \
+        c->variable = value.value(); \
+        return value; \
+    }
+
 // EngineConfig.storage_config
 Object EngineConfig_storage_config_get(Object self) {
     Data_Object<osrm::EngineConfig> c(self, rb_cEngineConfig);
@@ -24,18 +36,22 @@ Object EngineConfig_storage_config_set(Object self, Object value) {
     return value;
 }
 
-// EngineConfig.max_locations_trip
-Object EngineConfig_max_locations_trip_get(Object self) {
+Object EngineConfig_use_shared_memory_get(Object self) {
     Data_Object<osrm::EngineConfig> c(self, rb_cEngineConfig);
-    return c->max_locations_trip;
+    return c->use_shared_memory;
 }
 
-// EngineConfig.max_locations_trip
-Object EngineConfig_max_locations_trip_set(Object self, Object value) {
+Object EngineConfig_use_shared_memory_set(Object self, Object value) {
     Data_Object<osrm::EngineConfig> c(self, rb_cEngineConfig);
-    c->max_locations_trip = value.value();
+    c->use_shared_memory = value.value();
     return value;
 }
+
+EC_ACC_INT(max_locations_trip)
+EC_ACC_INT(max_locations_viaroute)
+EC_ACC_INT(max_locations_distance_table)
+EC_ACC_INT(max_locations_map_matching)
+EC_ACC_INT(max_results_nearest)
 
 char const * description(osrm::EngineConfig::Algorithm e) {
     switch(e) {
@@ -60,10 +76,13 @@ void init_engine_config() {
             define_class_under<osrm::EngineConfig>(rb_mLibOSRM, "EngineConfig")
                 .define_constructor(Constructor<osrm::EngineConfig>())
                 .define_method("valid?", &osrm::EngineConfig::IsValid)
-                .define_method("storage_config=", &EngineConfig_storage_config_set)
-                .define_method("storage_config", &EngineConfig_storage_config_get)
-                .define_method("max_locations_trip=", &EngineConfig_max_locations_trip_set)
-                .define_method("max_locations_trip", &EngineConfig_max_locations_trip_get)
+                ATTR_ACCESSOR_DECL(EngineConfig, storage_config)
+                ATTR_ACCESSOR_DECL(EngineConfig, max_locations_trip)
+                ATTR_ACCESSOR_DECL(EngineConfig, max_locations_viaroute)
+                ATTR_ACCESSOR_DECL(EngineConfig, max_locations_distance_table)
+                ATTR_ACCESSOR_DECL(EngineConfig, max_locations_map_matching)
+                ATTR_ACCESSOR_DECL(EngineConfig, max_results_nearest)
+                ATTR_ACCESSOR_DECL(EngineConfig, use_shared_memory)
             ;
 
     rb_eEngineConfigAlgorithm =

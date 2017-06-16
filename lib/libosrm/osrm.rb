@@ -1,32 +1,25 @@
 
-class LibOSRM::OSRM
+require_relative "../libosrm"
+require_relative "route_parameters"
+
+class LibOSRM::RubyOSRM
   def initialize
     config = LibOSRM::EngineConfig.new
     LibOSRM::EngineConfig::Algorithm.each do |x|
       #puts x.inspect
     end
-    st = LibOSRM::StorageConfig.new "nyawr"
-    puts st.core_data_path.inspect
-    st.core_data_path = "miu?"
-    puts st.core_data_path.inspect
-    config.storage_config = "TODO"
-    puts config.max_locations_trip = 42
-    puts config.max_locations_trip.inspect
+    st = LibOSRM::StorageConfig.new "test/helsinki_finland.osrm"
+    config.storage_config = st
     config.use_shared_memory = false
 
-    osrm = { "osrm" => config }
+    osrm = LibOSRM::OSRM.new(config)
 
-    RouteParameters params
+    params = LibOSRM::RouteParameters.new
+    params << [ 60.16468, 24.94119 ]
+    params << [ 60.17427, 24.95888 ]
 
-    #// Route in monaco
-    #params.coordinates.push_back({util::FloatLongitude{7.419758}, util::FloatLatitude{43.731142}});
-    #params.coordinates.push_back({util::FloatLongitude{7.419505}, util::FloatLatitude{43.736825}});
-
-    #// Response is in JSON format
-    #json::Object result;
-
-    #// Execute routing request, this does the heavy lifting
-    #const auto status = osrm.Route(params, result);
+    result = osrm.route params
+    puts result.inspect
 
 =begin
     if (status == Status::Ok) {
@@ -64,3 +57,5 @@ class LibOSRM::OSRM
     nil
   end
 end
+
+osrm = LibOSRM::RubyOSRM.new

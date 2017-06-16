@@ -8,7 +8,7 @@ Given(/^I have address "([^"]*)"$/) do |address|
 end
 
 Then(/^distance between these addresses should be (\d+) km$/) do |distance|
-  osrm = LibOSRM::OSRM.new
+  osrm = LibOSRM::RubyOSRM.new
   result = osrm.distance_by_roads @addresses
   expect(result).to eq(distance)
 end

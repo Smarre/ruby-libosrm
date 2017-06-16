@@ -32,7 +32,8 @@ Object EngineConfig_storage_config_get(Object self) {
 
 // EngineConfig.storage_config
 Object EngineConfig_storage_config_set(Object self, Object value) {
-    self.iv_set("@storage_config", value);
+    Data_Object<osrm::EngineConfig> c(self, rb_cEngineConfig);
+    c->storage_config = from_ruby<osrm::storage::StorageConfig>(value.value());
     return value;
 }
 

@@ -54,32 +54,41 @@ Object wrap_route(Object self, Object o) {
         throw Exception(rb_eRuntimeError, "Failed to route with given input. error code: %s, message: %s", code.c_str(), message.c_str());
     }
 
-    // This can be used to get the response with a little bit of hackery...
-    //osrm::util::json::render(std::cout, result);
+    Hash routes_result;
+    routes_result[String("code")] = result.values["code"].get<osrm::json::String>().value;
 
-    auto &routes = result.values["routes"].get<osrm::json::Array>();
+    Array routes_array;
+    auto &routeValues = result.values["routes"].get<osrm::json::Array>();
+    for(auto const& routeValue : routeValues.values) {
+        auto route = routeValue.get<osrm::json::Object>();
+        Hash route_result;
+        for(std::pair<std::string, osrm::util::json::Value> e : route.values) {
+            if(e.first == "distance") {
+                route_result[String("distance")] = e.second.get<osrm::json::Number>().value;
+            } else if(e.first == "duration") {
+                route_result[String("duration")] = e.second.get<osrm::json::Number>().value;
+            } else if(e.first == "weight") {
+                route_result[String("weight")] = e.second.get<osrm::json::Number>().value;
+            } else if(e.first == "weight_name") {
+                route_result[String("weight_name")] = e.second.get<osrm::json::String>().value;
+            } else if(e.first == "geometry") {
+                // TODO
+            } else if(e.first == "legs") {
+                // TODO
+            } else {
+                throw Exception(rb_eRuntimeError, "Invalid JSON value when building a route from libosrm.so: %s", e.first.c_str());
+            }
+        }
 
-    // Let's just use the first route
-    auto &route = routes.values.at(0).get<osrm::json::Object>();
-    const auto distance = route.values["distance"].get<osrm::json::Number>().value;
-    const auto duration = route.values["duration"].get<osrm::json::Number>().value;
-
-    // Warn users if extract does not contain the default coordinates from above
-    if (distance == 0 || duration == 0) {
-        std::cout << "Note: distance or duration is zero. ";
-        std::cout << "You are probably doing a query outside of the OSM extract.\n\n";
+        routes_array.push(route_result);
     }
+    routes_result[String("routes")] = routes_array;
 
-    std::cout << "Distance: " << distance << " meter\n";
-    std::cout << "Duration: " << duration << " seconds\n";
-
-    // and then convert back so we get the result we want to have
-    return to_ruby(result);
+    return routes_result;
 }
 
 void init_osrm_object() {
-    rb_cOsrm =
-            define_class_under<osrm::OSRM>(rb_mLibOSRM, "OSRM")
+    rb_cOsrm = define_class_under<osrm::OSRM>(rb_mLibOSRM, "OSRM")
                 .define_constructor(Constructor<osrm::OSRM, osrm::EngineConfig>(), Arg("config"))
                 .define_method("route", &wrap_route)
                 .define_method("table", &osrm::OSRM::Table)

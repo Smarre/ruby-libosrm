@@ -4,7 +4,7 @@ require "mkmf-rice"
 #abort "missing storage/storage_config.hpp" unless find_header "storage/storage_config.hpp", "/usr/include/osrm"
 
 #append_cflags("-I/usr/include/osrm -I/home/smar/Paketit/scm/osrm-backend/include")
-append_cflags("-I/usr/include/osrm")
+append_cflags("-I/usr/include/osrm -DHAVE_CXX11")
 
 have_library "osrm"
 

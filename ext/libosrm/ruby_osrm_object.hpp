@@ -25,6 +25,15 @@ osrm::EngineConfig from_ruby<osrm::EngineConfig>(Object x) {
 }
 */
 
+/*
+template<>
+double from_ruby<double>(String x) {
+    //return from_ruby<double>(x.c_str());
+    //Data_Object<osrm::EngineConfig> d(x, rb_cOsrm);
+    //return *d;
+}
+*/
+
 Object wrap_route(Object self, Object o) {
     // Convert Ruby object to native type
     osrm::RouteParameters params;

@@ -8,7 +8,7 @@
 
 using namespace Rice;
 
-Module rb_mLibOSRM = define_module("LibOSRM");
+static Module rb_mLibOSRM = define_module("LibOSRM");
 
 #define ATTR_ACCESSOR_DECL(klass, variable) \
     .define_method(#variable, &klass##_##variable##_get) \

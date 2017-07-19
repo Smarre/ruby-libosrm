@@ -19,6 +19,8 @@ Object wrap_distance_by_roads(Object self, Object o) {
         params.coordinates.push_back({osrm::util::FloatLongitude{lon}, osrm::util::FloatLatitude{lat}});
     }
 
+    params.overview = osrm::RouteParameters::OverviewType::False;
+
     // Response is in JSON format
     osrm::json::Object result;
 
@@ -34,37 +36,13 @@ Object wrap_distance_by_roads(Object self, Object o) {
         throw Exception(rb_eRuntimeError, "Failed to route with given input. error code: %s, message: %s", code.c_str(), message.c_str());
     }
 
-    Hash routes_result;
-    routes_result[String("code")] = result.values["code"].get<osrm::json::String>().value;
+    // We can take first route since we only want the distance.
+    auto &routes = result.values["routes"].get<osrm::json::Array>();
+    auto &route = routes.values.at(0).get<osrm::json::Object>();
 
-    Array routes_array;
-    auto &routeValues = result.values["routes"].get<osrm::json::Array>();
-    for(auto const& routeValue : routeValues.values) {
-        auto route = routeValue.get<osrm::json::Object>();
-        Hash route_result;
-        for(std::pair<std::string, osrm::util::json::Value> e : route.values) {
-            if(e.first == "distance") {
-                route_result[String("distance")] = e.second.get<osrm::json::Number>().value;
-            } else if(e.first == "duration") {
-                route_result[String("duration")] = e.second.get<osrm::json::Number>().value;
-            } else if(e.first == "weight") {
-                route_result[String("weight")] = e.second.get<osrm::json::Number>().value;
-            } else if(e.first == "weight_name") {
-                route_result[String("weight_name")] = e.second.get<osrm::json::String>().value;
-            } else if(e.first == "geometry") {
-                // TODO
-            } else if(e.first == "legs") {
-                // TODO
-            } else {
-                throw Exception(rb_eRuntimeError, "Invalid JSON value when building a route from libosrm.so: %s", e.first.c_str());
-            }
-        }
+    const auto distance = route.values["distance"].get<osrm::json::Number>().value;
 
-        routes_array.push(route_result);
-    }
-    routes_result[String("routes")] = routes_array;
-
-    return routes_result;
+    return to_ruby(distance);
 }
 
 Object wrap_route(Object self, Object o) {

@@ -22,9 +22,7 @@ class LibOSRM::RubyOSRM
       params << [ coord[:latitude], coord[:longitude] ]
     end
 
-    result = @osrm.route params
-
-    result["routes"].first["distance"]
+    @osrm.distance_by_roads params
   end
 end
 

@@ -20,23 +20,6 @@ using namespace Rice;
 // Hackery for getting rendered JSON
 //#include "util/json_renderer.hpp"
 
-/*
-template<>
-osrm::EngineConfig from_ruby<osrm::EngineConfig>(Object x) {
-    Data_Object<osrm::EngineConfig> d(x, rb_cOsrm);
-    return *d;
-}
-*/
-
-/*
-template<>
-double from_ruby<double>(String x) {
-    //return from_ruby<double>(x.c_str());
-    //Data_Object<osrm::EngineConfig> d(x, rb_cOsrm);
-    //return *d;
-}
-*/
-
 Object wrap_distance_by_roads(Object self, Object o);
 
 Object wrap_route(Object self, Object o);

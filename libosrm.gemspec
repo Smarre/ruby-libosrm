@@ -10,4 +10,6 @@ Gem::Specification.new do |s|
   s.extensions  = %w[ext/libosrm/extconf.rb]
   s.homepage    = "http://smar.fi"
   s.license     = "MIT"
+
+  s.add_development_dependency "rice", "~> 2.1"
 end

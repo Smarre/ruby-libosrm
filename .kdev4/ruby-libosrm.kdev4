@@ -11,9 +11,9 @@ parserArgumentsC=-ferror-limit=100 -fspell-checking -Wdocumentation -Wunused-par
 Name=Clang
 
 [CustomDefinesAndIncludes][ProjectPath0][Includes]
-1=/usr/include/ruby-2.3.0/
-2=/usr/include/osrm/
-3=/var/lib/gems/2.3.0/gems/rice-2.1.1/ruby/lib/include
+1=/usr/include/osrm/
+2=/home/smar/.rvm/gems/ruby-2.4.1/gems/rice-2.1.1/ruby/lib/include
+3=/home/smar/.rvm/rubies/ruby-2.4.1/include/ruby-2.4.0/x86_64-linux
 
 [Project]
 VersionControlSupport=kdevgit

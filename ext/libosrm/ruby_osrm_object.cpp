@@ -5,17 +5,30 @@ using namespace Rice;
 
 Data_Type<osrm::OSRM> rb_cOsrm;
 
+template<>
+osrm::engine::EngineConfig from_ruby<osrm::engine::EngineConfig>(Object x) {
+    if(x.is_nil()) {
+        // TODO: raise error
+    }
+
+    osrm::engine::EngineConfig config;
+    config.storage_config = { x.to_s().c_str() };
+    config.use_shared_memory = false;
+    return config;
+}
+
 Object wrap_distance_by_roads(Object self, Object o) {
+
     // Convert Ruby object to native type
     osrm::RouteParameters params;
 
-    Array coordinates = o.iv_get("@coordinates");
+    Array coordinates = o;
     Array::iterator it = coordinates.begin();
     Array::iterator end = coordinates.end();
     for(; it != end; ++it) {
-        Array latlon = (Array)*it;
-        double lat = from_ruby<double>(latlon[0]);
-        double lon = from_ruby<double>(latlon[1]);
+        Hash latlon = (Hash)*it;
+        double lat = from_ruby<double>(latlon[Symbol("latitude")]);
+        double lon = from_ruby<double>(latlon[Symbol("longitude")]);
         params.coordinates.push_back({osrm::util::FloatLongitude{lon}, osrm::util::FloatLatitude{lat}});
     }
 

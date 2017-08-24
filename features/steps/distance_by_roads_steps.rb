@@ -16,7 +16,7 @@ Given(/^I have address "([^"]*)"$/) do |address|
 end
 
 Then(/^distance between these addresses should be (\d+.\d+) meters$/) do |distance|
-  osrm = LibOSRM::RubyOSRM.new
+  osrm = LibOSRM::OSRM.new "test/helsinki_finland.osrm"
   result = osrm.distance_by_roads @coordinates
   expect(result).to eq(distance.to_f)
 end

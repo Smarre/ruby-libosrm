@@ -3,7 +3,8 @@
 require_relative "../libosrm"
 require_relative "route_parameters"
 
-class LibOSRM::RubyOSRM
+class LibOSRM::OSRM
+=begin
   def initialize
     config = LibOSRM::EngineConfig.new
     LibOSRM::EngineConfig::Algorithm.each do |x|
@@ -15,8 +16,10 @@ class LibOSRM::RubyOSRM
 
     @osrm = LibOSRM::OSRM.new(config)
   end
+=end
 
   # NOTE: coordinates must be numbers, Strings are not accepted.
+=begin
   def distance_by_roads coordinates
     params = LibOSRM::RouteParameters.new
     coordinates.each do |coord|
@@ -25,6 +28,5 @@ class LibOSRM::RubyOSRM
 
     @osrm.distance_by_roads params
   end
+=end
 end
-
-osrm = LibOSRM::RubyOSRM.new

@@ -28,6 +28,7 @@ boost::filesystem::path from_ruby<boost::filesystem::path>(Object x) {
         return value; \
     }
 
+    /*
 SC_ACC(ram_index_path)
 SC_ACC(file_index_path)
 SC_ACC(hsgr_data_path)
@@ -49,6 +50,7 @@ SC_ACC(turn_lane_description_path)
 SC_ACC(mld_partition_path)
 SC_ACC(mld_storage_path)
 SC_ACC(mld_graph_path)
+*/
 
 void init_storage_config() {
     rb_cStorageConfig =
@@ -56,7 +58,7 @@ void init_storage_config() {
                 .define_constructor(Constructor<osrm::storage::StorageConfig>())
                 .define_constructor(Constructor<osrm::storage::StorageConfig, const boost::filesystem::path>(), Arg("base"))
                 .define_method("valid?", &osrm::storage::StorageConfig::IsValid)
-                ATTR_ACCESSOR_DECL(StorageConfig, ram_index_path)
+                /*ATTR_ACCESSOR_DECL(StorageConfig, ram_index_path)
                 ATTR_ACCESSOR_DECL(StorageConfig, file_index_path)
                 ATTR_ACCESSOR_DECL(StorageConfig, hsgr_data_path)
                 ATTR_ACCESSOR_DECL(StorageConfig, node_based_nodes_data_path)
@@ -77,6 +79,7 @@ void init_storage_config() {
                 ATTR_ACCESSOR_DECL(StorageConfig, mld_partition_path)
                 ATTR_ACCESSOR_DECL(StorageConfig, mld_storage_path)
                 ATTR_ACCESSOR_DECL(StorageConfig, mld_graph_path)
+                */
             ;
 
 

@@ -22,8 +22,12 @@ using namespace Rice;
 
 Object wrap_distance_by_roads(Object self, Object o);
 
-Object wrap_route(Object self, Object o);
+Rice::Object wrap_route(Rice::Object self, Rice::Array coordinates, Rice::Hash opts);
 
 void init_osrm_object();
+
+Array parse_route_legs(osrm::util::json::Value value);
+Array parse_route_leg_steps(osrm::util::json::Value value);
+Hash parse_route_leg_annotations(osrm::util::json::Value value);
 
 #endif

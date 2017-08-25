@@ -1,6 +1,7 @@
 
 #include "ruby_osrm_object.hpp"
 #include "osrm_match_func.hpp"
+#include "osrm_nearest_func.hpp"
 #include "osrm_route_func.hpp"
 
 using namespace Rice;
@@ -66,7 +67,7 @@ void init_osrm_object() {
                 .define_method("distance_by_roads", &wrap_distance_by_roads)
                 .define_method("route", &wrap_route, (Arg("coordinates"), Arg("opts") = Nil))
                 .define_method("table", &osrm::OSRM::Table)
-                .define_method("nearest", &osrm::OSRM::Nearest)
+                .define_method("nearest", &wrap_nearest, (Arg("latitude"), Arg("longitude"), Arg("amount") = 1))
                 .define_method("trip", &osrm::OSRM::Trip)
                 .define_method("match", &wrap_match, (Arg("coordinates"), Arg("opts") = Nil))
                 .define_method("tile", &osrm::OSRM::Tile)

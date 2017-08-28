@@ -3,6 +3,7 @@
 #include "osrm_match_func.hpp"
 #include "osrm_nearest_func.hpp"
 #include "osrm_route_func.hpp"
+#include "osrm_tile_func.hpp"
 
 using namespace Rice;
 
@@ -70,6 +71,6 @@ void init_osrm_object() {
                 .define_method("nearest", &wrap_nearest, (Arg("latitude"), Arg("longitude"), Arg("amount") = 1))
                 .define_method("trip", &osrm::OSRM::Trip)
                 .define_method("match", &wrap_match, (Arg("coordinates"), Arg("opts") = Nil))
-                .define_method("tile", &osrm::OSRM::Tile)
+                .define_method("tile", &wrap_tile, (Arg("x"), Arg("y"), Arg("zoom")))
             ;
 }

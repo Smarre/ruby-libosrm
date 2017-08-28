@@ -4,29 +4,18 @@ require_relative "../libosrm"
 require_relative "route_parameters"
 
 class LibOSRM::OSRM
-=begin
-  def initialize
-    config = LibOSRM::EngineConfig.new
-    LibOSRM::EngineConfig::Algorithm.each do |x|
-      #puts x.inspect
-    end
-    st = LibOSRM::StorageConfig.new "test/helsinki_finland.osrm"
-    config.storage_config = st
-    config.use_shared_memory = false
 
-    @osrm = LibOSRM::OSRM.new(config)
+  def tile_with_coordinates latitude, longitude, zoom
+    xy = coordinates_to_tile_numbers latitude, longitude, zoom
+    tile xy[:x], xy[:y], zoom
   end
-=end
 
-  # NOTE: coordinates must be numbers, Strings are not accepted.
-=begin
-  def distance_by_roads coordinates
-    params = LibOSRM::RouteParameters.new
-    coordinates.each do |coord|
-      params << [ coord[:latitude], coord[:longitude] ]
-    end
+  def coordinates_to_tile_numbers latitude, longitude, zoom
+    lat_rad = latitude / 180 * Math::PI
+    n = 2.0 ** zoom
+    x = ((longitude + 180.0) / 360.0 * n).to_i
+    y = ((1.0 - Math::log(Math::tan(lat_rad) + (1 / Math::cos(lat_rad))) / Math::PI) / 2.0 * n).to_i
 
-    @osrm.distance_by_roads params
+    {:x => x, :y =>y}
   end
-=end
 end

@@ -10,10 +10,7 @@ using namespace Rice;
 #include <osrm/engine_config.hpp>
 
 #include <osrm/table_parameters.hpp>
-#include <osrm/nearest_parameters.hpp>
 #include <osrm/trip_parameters.hpp>
-#include <osrm/match_parameters.hpp>
-#include <osrm/tile_parameters.hpp>
 #include <osrm/json_container.hpp>
 
 Object wrap_distance_by_roads(Object self, Object o);

@@ -4,6 +4,7 @@
 #include "osrm_nearest_func.hpp"
 #include "osrm_route_func.hpp"
 #include "osrm_tile_func.hpp"
+#include "osrm_table_func.hpp"
 
 using namespace Rice;
 
@@ -67,7 +68,7 @@ void init_osrm_object() {
                 .define_constructor(Constructor<osrm::OSRM, osrm::EngineConfig>(), Arg("config"))
                 .define_method("distance_by_roads", &wrap_distance_by_roads)
                 .define_method("route", &wrap_route, (Arg("coordinates"), Arg("opts") = Nil))
-                .define_method("table", &osrm::OSRM::Table)
+                .define_method("table", &wrap_table, (Arg("coordinates"), Arg("opts") = Nil))
                 .define_method("nearest", &wrap_nearest, (Arg("latitude"), Arg("longitude"), Arg("amount") = 1))
                 .define_method("trip", &osrm::OSRM::Trip)
                 .define_method("match", &wrap_match, (Arg("coordinates"), Arg("opts") = Nil))

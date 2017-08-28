@@ -16,6 +16,8 @@ Hash parse_match_result(osrm::json::Object match) {
             throw Exception(rb_eRuntimeError, "Invalid JSON value when building a match from libosrm.so: %s", e.first.c_str());
         }
     }
+
+    return result;
 }
 
 Object wrap_match(Object self, Array coordinates, Hash opts) {

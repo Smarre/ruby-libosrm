@@ -2,6 +2,16 @@
 
 require_relative "../libosrm"
 
+# OSRM routing interface.
+#
+# Provides methods to calculate various data using Openstreetmap data with OSRM.
+#
+# For example, to get distance by roads, you could use
+#
+#   osrm = OSRM.new "map.osrm"
+#   distance = osrm.distance_by_roads { latitude: 60.1681473, longitude: 24.9417190 }, { latitude: 60.1694561, longitude: 24.9385663 }
+#
+# Please see {file:README.md} for general instructions of how to use this gem.
 class LibOSRM::OSRM
 
   # @!macro [new] native

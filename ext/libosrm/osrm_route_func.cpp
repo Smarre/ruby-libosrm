@@ -144,7 +144,6 @@ Array parse_route_legs(osrm::util::json::Value value) {
     return legs_array;
 }
 
-
 Object wrap_route(Object self, Array coordinates, Hash opts) {
     // Convert Ruby object to native type
     osrm::RouteParameters params;

@@ -1,38 +1,14 @@
 
-#include "osrm_match_func.hpp"
+#include "osrm_nearest_func.hpp"
 
 #include <osrm/nearest_parameters.hpp>
 
-Array parse_waypoints(osrm::json::Array waypoints) {
-    Array waypoints_result;
-    for(auto const& waypointValue : waypoints.values) {
-        auto waypoint = waypointValue.get<osrm::json::Object>();
-        Hash waypoint_result;
-        for(std::pair<std::string, osrm::util::json::Value> e : waypoint.values) {
-            if(e.first == "name") {
-                waypoint_result[String("name")] = e.second.get<osrm::json::String>().value;
-            } else if(e.first == "location") {
-                Hash location;
-                auto const& values = e.second.get<osrm::json::Array>().values;
-                location[Symbol("latitude")] = values[1].get<osrm::json::Number>().value;
-                location[Symbol("longitude")] = values[0].get<osrm::json::Number>().value;
-                waypoint_result[String("location")] = location;
-            } else if(e.first == "hint") {
-                waypoint_result[String("hint")] = e.second.get<osrm::json::String>().value;
-            } else if(e.first == "distance") {
-                waypoint_result[String("distance")] = e.second.get<osrm::json::Number>().value;
-            } else {
-                throw Exception(rb_eRuntimeError, "Invalid JSON value when building waypoints from libosrm.so: %s", e.first.c_str());
-            }
-        }
-
-        waypoints_result.push(waypoint_result);
-    }
-
-    return waypoints_result;
+Object wrap_nearest(Object self, double latitude, double longitude, int amount) {
+    NearestFunc func;
+    return func.wrap_nearest(self, latitude, longitude, amount);
 }
 
-Hash parse_nearest_result(osrm::json::Object nearest) {
+Hash NearestFunc::parse_nearest_result(osrm::json::Object nearest) {
     Hash result;
     for(std::pair<std::string, osrm::util::json::Value> e : nearest.values) {
         if(e.first == "code") {
@@ -47,7 +23,7 @@ Hash parse_nearest_result(osrm::json::Object nearest) {
     return result;
 }
 
-Object wrap_nearest(Object self, double latitude, double longitude, int amount) {
+Object NearestFunc::wrap_nearest(Object self, double latitude, double longitude, int amount) {
     // Convert Ruby object to native type
     osrm::NearestParameters params;
 

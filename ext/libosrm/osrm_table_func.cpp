@@ -5,7 +5,12 @@
 
 #include "osrm_nearest_func.hpp"
 
-Hash parse_table_result(osrm::json::Object match) {
+Object wrap_table(Object self, Array coordinates, Hash opts) {
+    TableFunc func;
+    return func.wrap_table(self, coordinates, opts);
+}
+
+Hash TableFunc::parse_table_result(osrm::json::Object match) {
     Hash result;
     for(std::pair<std::string, osrm::util::json::Value> e : match.values) {
         if(e.first == "code") {
@@ -33,7 +38,7 @@ Hash parse_table_result(osrm::json::Object match) {
     return result;
 }
 
-std::vector<std::size_t> table_array_conversion(Object o) {
+std::vector<std::size_t> TableFunc::table_array_conversion(Object o) {
     std::vector<std::size_t> out;
     if(o.is_a(rb_cArray)) {
         Array a = (Array) o;
@@ -52,7 +57,7 @@ std::vector<std::size_t> table_array_conversion(Object o) {
     return out;
 }
 
-Object wrap_table(Object self, Array coordinates, Hash opts) {
+Object TableFunc::wrap_table(Object self, Array coordinates, Hash opts) {
     // Convert Ruby object to native type
     osrm::TableParameters params;
 

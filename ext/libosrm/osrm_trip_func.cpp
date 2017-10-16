@@ -99,9 +99,9 @@ Object TripFunc::wrap_trip(Object self, Array coordinates, Hash opts) {
     trip_result[String("waypoints")] = parse_waypoints(result.values["waypoints"].get<osrm::json::Array>());
 
     Array trips_array;
-    auto &routeValues = result.values["routes"].get<osrm::json::Array>();
-    for(auto const& routeValue : routeValues.values) {
-        trips_array.push(parse_route(routeValue.get<osrm::json::Object>()));
+    auto &tripValues = result.values["trips"].get<osrm::json::Array>();
+    for(auto const& tripValue : tripValues.values) {
+        trips_array.push(parse_route(tripValue.get<osrm::json::Object>()));
     }
     trip_result[String("trips")] = trips_array;
 

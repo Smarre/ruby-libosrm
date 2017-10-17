@@ -15,6 +15,7 @@ Gem::Specification.new do |s|
   s.homepage    = "http://smar.fi"
   s.license     = "MIT"
 
+  s.add_runtime_dependency "mini_portile2", "~> 2.3.0"
   s.add_development_dependency "rice", "~> 2.1"
   s.add_development_dependency "rake", "~> 12.0"
   s.add_development_dependency "rake-compiler", "~> 1.0"

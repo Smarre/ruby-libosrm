@@ -2,3 +2,5 @@ tmp/
 *.so
 *.o
 Gemfile.lock
+bin/osrm-extract
+bin/osrm-contract

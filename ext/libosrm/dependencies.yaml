@@ -1,0 +1,4 @@
+
+libosrm:
+    version: "5.12.0"
+    download_uri: "https://github.com/Project-OSRM/osrm-backend/archive/v5.12.0.tar.gz"

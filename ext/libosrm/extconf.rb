@@ -1,5 +1,8 @@
 require "mkmf-rice"
 
+require "fileutils"
+require "yaml"
+
 def do_help
   print <<HELP
 usage: ruby #{$0} [options]
@@ -18,6 +21,11 @@ end
 
 def using_system_libraries?
     arg_config("--use-system-libraries", !!ENV["LIBOSRM_USE_SYSTEM_LIBRARIES"])
+end
+
+def create_osrm_symlinks recipe
+    FileUtils.ln_s "../#{recipe.work_path}/osrm-extract", "bin/osrm-extract" unless File.exist? "bin/osrm-extract"
+    FileUtils.ln_s "../#{recipe.work_path}/osrm-contract", "bin/osrm-contract" unless File.exist? "bin/osrm-contract"
 end
 
 case
@@ -47,10 +55,14 @@ else
         # Current version doesn’t support out of tree builds
         require_relative "mini_portile_fixed_cmake"
 
-        recipe = MiniPortileFixedCMake.new("libosrm", "5.12.0")
-        recipe.files = [ "https://github.com/Project-OSRM/osrm-backend/archive/v5.12.0.tar.gz" ]
+        deps = YAML.load_file "ext/libosrm/dependencies.yaml"
+
+        recipe = MiniPortileFixedCMake.new("libosrm", deps["libosrm"]["version"])
+        recipe.files = [ deps["libosrm"]["download_uri"] ]
         recipe.cook
         recipe.activate
+
+        create_osrm_symlinks recipe
 
         append_cflags("-I#{recipe.path}/include -I#{recipe.path}/include/osrm")
         find_library "osrm", nil, "#{recipe.path}/lib"

@@ -14,6 +14,8 @@ Gem::Specification.new do |s|
   s.email       = "smar@smar.fi"
   s.files       = [ "lib/libosrm.rb" ]
   s.extensions  = %w[ext/libosrm/extconf.rb]
+  s.bindir      = "bin"
+  s.executables = [ "libosrm-prepare" ]
   s.homepage    = "http://smar.fi"
   s.license     = "MIT"
 

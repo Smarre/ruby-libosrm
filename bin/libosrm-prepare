@@ -25,7 +25,7 @@ unless File.file? pbf
   print_usage
 end
 
-result = system "#{__dir__}/../libexec/osrm-extract #{pbf} -p osrm/profiles/car.lua"
+result = system "#{__dir__}/../libexec/osrm-extract #{pbf} -p #{__dir__}/../osrm/profiles/car.lua"
 
 unless result
   puts

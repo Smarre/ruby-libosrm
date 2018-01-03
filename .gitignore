@@ -4,3 +4,9 @@ tmp/
 Gemfile.lock
 libexec/osrm-extract
 libexec/osrm-contract
+osrm/profiles/*.lua
+*.gem
+doc/
+mkmf.log
+ports/
+.yardoc

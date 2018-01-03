@@ -73,4 +73,4 @@ end
 append_cflags("-DHAVE_CXX11")
 
 #create_makefile "libosrm/libosrm"
-create_makefile "ruby_libosrm"
+create_makefile "libosrm/ruby_libosrm"

@@ -114,6 +114,35 @@ distance = osrm.distance_by_roads { latitude: 60.1681473, longitude: 24.9417190 
 Save this script and try to run it. If you have Finnish map data, this should return you a distance.
 If you don’t have Finnish map data, an exception should be raised.
 
+Compiling from the repository
+-----------------------------
+
+Installing from gem (see Installing section) is preferred, but it is also possible to
+build from the source.
+
+NOTE: building should take long time as osrm needs to be built too.
+
+
+```shell
+$ git clone https://github.com/Smarre/ruby-libosrm.git
+$ cd ruby-libosrm
+$ # Install bundler if required: gem install bundler
+$ bundle install
+$ # Compile the library.
+$ bundle exec rake
+$ # Run tests to ensure the library works
+$ bundle exec cucumber
+```
+
+Now you should have working instance of ruby-libosrm. To use it, you most likely want to build a gem and use it through
+the gem in your project:
+
+```shell
+$ # Build the gem
+$ gem build libosrm.gemspec
+$ # prepend with sudo if you don’t use user specific gem data
+$ gem install libosrm-0.0.1.gem
+```
 
 Known issues
 --------------

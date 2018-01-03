@@ -6,7 +6,7 @@ require_relative "lib/libosrm/version"
 
 Gem::Specification.new do |s|
   s.name        = "libosrm"
-  s.version     = LibOSRM::Version
+  s.version     = LibOSRM::VERSION
   s.date        = Date.today
   s.summary     = "libosrm bindings for Ruby."
   s.description = "Ruby bindings for OSRM’s C++ API, providing faster and more customizable interaction with OSRM than HTTP based API."
@@ -17,8 +17,8 @@ Gem::Specification.new do |s|
   s.homepage    = "http://smar.fi"
   s.license     = "MIT"
 
-  s.add_runtime_dependency "mini_portile2", "~> 2.3.0"
-  s.add_development_dependency "rice", "~> 2.1"
-  s.add_development_dependency "rake", "~> 12.0"
-  s.add_development_dependency "rake-compiler", "~> 1.0"
+  s.add_runtime_dependency      "mini_portile2",  "~> 2.3.0"
+  s.add_development_dependency  "rice",           "~> 2.1"
+  s.add_development_dependency  "rake",           "~> 12.0"
+  s.add_development_dependency  "rake-compiler",  "~> 1.0"
 end

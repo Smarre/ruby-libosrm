@@ -1,0 +1,46 @@
+#!/usr/bin/env ruby
+
+#require_relative "../lib/libosrm/version"
+
+def print_usage
+  puts "Usage: #{$0} path_to_map.pbf"
+  exit 1
+end
+
+unless ARGV[0]
+  print_usage
+end
+
+pbf = ARGV[0]
+
+if(pbf == "-h" || pbf == "--help")
+  puts "libosrm-prepare is an utility to prepare Openstreetmap map data for ruby-libosrm to use."
+  puts
+  print_usage
+end
+
+unless File.file? pbf
+  puts "Given file does not exist."
+  puts
+  print_usage
+end
+
+output = `#{__dir__}/../libexec/osrm-extract #{pbf} -p osrm/profiles/car.lua`
+
+unless $?.success?
+  puts "Extracting map data failed:"
+  puts
+  puts output
+  puts
+  exit 1
+end
+
+output = `#{__dir__}/../libexec/osrm-contract #{pbf}`
+
+unless $?.success?
+  puts "Creating osrm compliant data failed:"
+  puts
+  puts output
+  puts
+  exit 1
+end

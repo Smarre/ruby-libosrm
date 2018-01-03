@@ -25,22 +25,18 @@ unless File.file? pbf
   print_usage
 end
 
-output = `#{__dir__}/../libexec/osrm-extract #{pbf} -p osrm/profiles/car.lua`
+result = system "#{__dir__}/../libexec/osrm-extract #{pbf} -p osrm/profiles/car.lua"
 
-unless $?.success?
-  puts "Extracting map data failed:"
+unless result
   puts
-  puts output
-  puts
+  puts "Extracting map data failed."
   exit 1
 end
 
-output = `#{__dir__}/../libexec/osrm-contract #{pbf}`
+result = system "#{__dir__}/../libexec/osrm-contract #{pbf}"
 
-unless $?.success?
-  puts "Creating osrm compliant data failed:"
+unless result
   puts
-  puts output
-  puts
+  puts "Creating osrm compliant data failed."
   exit 1
 end

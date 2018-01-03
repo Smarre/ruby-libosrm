@@ -12,7 +12,17 @@ Gem::Specification.new do |s|
   s.description = "Ruby bindings for OSRM’s C++ API, providing faster and more customizable interaction with OSRM than HTTP based API."
   s.authors     = [ "Samu Voutilainen" ]
   s.email       = "smar@smar.fi"
-  s.files       = [ "lib/libosrm.rb" ]
+  s.files       = [
+    "ext/libosrm/mini_portile_fixed_cmake.rb",
+    "ext/libosrm/dependencies.yaml",
+    "lib/libosrm.rb",
+    "lib/libosrm/osrm.rb",
+    "lib/libosrm/version.rb",
+    "libexec/.keep",
+    "osrm/profiles/.keep"
+  ] +
+    Dir.glob("ext/libosrm/*.cpp") +
+    Dir.glob("ext/libosrm/*.hpp")
   s.extensions  = %w[ext/libosrm/extconf.rb]
   s.bindir      = "bin"
   s.executables = [ "libosrm-prepare" ]

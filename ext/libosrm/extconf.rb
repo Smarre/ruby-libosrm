@@ -23,10 +23,10 @@ def using_system_libraries?
     arg_config("--use-system-libraries", !!ENV["LIBOSRM_USE_SYSTEM_LIBRARIES"])
 end
 
-# We want to copy the exes so we can bundle them in the library for map data extraction
-def copy_osrm_exes recipe
-    FileUtils.cp "#{recipe.work_path}/osrm-extract", "libexec/osrm-extract" unless File.exist? "libexec/osrm-extract"
-    FileUtils.cp "#{recipe.work_path}/osrm-contract", "libexec/osrm-contract" unless File.exist? "libexec/osrm-contract"
+def symlink_osrm_data recipe
+    FileUtils.ln_s "../#{recipe.work_path}/osrm-extract", "libexec/osrm-extract" unless File.exist? "libexec/osrm-extract"
+    FileUtils.ln_s "../#{recipe.work_path}/osrm-contract", "libexec/osrm-contract" unless File.exist? "libexec/osrm-contract"
+    FileUtils.ln_s "../../#{recipe.work_path}/../profiles/car.lua", "osrm/profiles/car.lua" unless File.exist? "osrm/profiles/car.lua"
 end
 
 case
@@ -63,7 +63,7 @@ else
         recipe.cook
         recipe.activate
 
-        copy_osrm_exes recipe
+        symlink_osrm_data recipe
 
         append_cflags("-I#{recipe.path}/include -I#{recipe.path}/include/osrm")
         find_library "osrm", nil, "#{recipe.path}/lib"

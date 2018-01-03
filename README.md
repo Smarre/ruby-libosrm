@@ -148,6 +148,7 @@ Known issues
 --------------
 
 - some requests are not fully supported (TODO)
+- OSRM profile is not configurable (hardcoded to OSRM supplied car.lua)
 
 Developers
 ----------

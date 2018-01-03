@@ -2,9 +2,11 @@
 
 require "date"
 
+require_relative "lib/libosrm/version"
+
 Gem::Specification.new do |s|
   s.name        = "libosrm"
-  s.version     = "0.0.1"
+  s.version     = LibOSRM::Version
   s.date        = Date.today
   s.summary     = "libosrm bindings for Ruby."
   s.description = "Ruby bindings for OSRM’s C++ API, providing faster and more customizable interaction with OSRM than HTTP based API."

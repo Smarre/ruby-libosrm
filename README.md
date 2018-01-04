@@ -8,8 +8,8 @@ libosrm Ruby bindings
 Description
 -----------
 
-ruby-libosrm is a Ruby bindings for libosrm, the C++ bindings for OSRM, open source routing machine.
-Provides fast and customizable interface compared to OSRM’s old HTTP API.
+ruby-libosrm is a Ruby bindings for OSRM’s libosrm, the C++ bindings for OSRM, open source routing machine,
+which provides fast and customizable interface compared to OSRM’s old HTTP API.
 
 Synopsis
 --------

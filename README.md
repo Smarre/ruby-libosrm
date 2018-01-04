@@ -40,8 +40,8 @@ Features
 Requirements
 ------------
 
-- Ruby 2.4
-- OSRM map data
+- Ruby 2.3 or greater
+- OSRM’s dependencies; see Installing section
 
 Installing
 ----------
@@ -184,6 +184,11 @@ Known issues
 
 - some requests are not fully supported (TODO)
 - OSRM profile is not configurable (hardcoded to OSRM supplied car.lua)
+
+TODO
+----
+
+- Maybe we should by default bundle all libraries? That would make it easier to get everything compiled. Or at least check if system has version and only then use bundled one.
 
 Developers
 ----------

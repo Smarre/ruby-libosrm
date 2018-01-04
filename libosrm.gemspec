@@ -9,7 +9,11 @@ Gem::Specification.new do |s|
   s.version     = LibOSRM::VERSION
   s.date        = Date.today
   s.summary     = "libosrm bindings for Ruby."
-  s.description = "Ruby bindings for OSRM’s C++ API, providing faster and more customizable interaction with OSRM than HTTP based API."
+  s.description = <<-EOF
+    Ruby bindings for OSRM’s C++ API, providing faster and more customizable interaction with OSRM than HTTP based API.
+
+    This gem requires native dependencies, you can find list of dependencies in README.
+  EOF
   s.authors     = [ "Samu Voutilainen" ]
   s.email       = "smar@smar.fi"
   s.files       = [
@@ -26,7 +30,7 @@ Gem::Specification.new do |s|
   s.extensions  = %w[ext/libosrm/extconf.rb]
   s.bindir      = "bin"
   s.executables = [ "libosrm-prepare" ]
-  s.homepage    = "http://smar.fi"
+  s.homepage    = "https://github.com/Smarre/ruby-libosrm"
   s.license     = "MIT"
 
   s.required_ruby_version "> 2.3.0"

@@ -66,7 +66,18 @@ else
         symlink_osrm_data recipe
 
         append_cflags("-I#{recipe.path}/include -I#{recipe.path}/include/osrm")
-        find_library "osrm", nil, "#{recipe.path}/lib"
+
+        #append_ldflags("-L#{File.expand_path(recipe.work_path)} -losrm")
+
+        $LDFLAGS << " -Wl,-rpath,#{File.expand_path(recipe.work_path)} -L#{File.expand_path(recipe.work_path)} -losrm"
+
+        #find_library("osrm", nil, File.expand_path(recipe.work_path))
+
+        #LIB_DIRS << recipe.work_path
+        #append_ldflags("-L#{recipe.path}/build -losrm")
+        #$LOCAL_LIBS << "-losrm"
+        #$LOCAL_LIBS << "#{recipe.path}/build/libosrm.a"
+        #$LIBS << " #{File.expand_path(recipe.work_path)}/libosrm.a"
     end
 end
 

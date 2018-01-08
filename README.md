@@ -186,6 +186,7 @@ Known issues
 - OSRM profile is not configurable (hardcoded to OSRM supplied car.lua)
 - Build files after gem installation are not cleaned
 - Linking OSRM statically instead as a library would further reduce disk space usage
+- Moving the gem to another location breaks the linkage, requiring reinstallation of the gem
 
 TODO
 ----

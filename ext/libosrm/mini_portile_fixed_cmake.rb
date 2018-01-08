@@ -9,7 +9,7 @@ class MiniPortileFixedCMake < MiniPortile
     if MiniPortile.windows?
       [ '-G "NMake Makefiles"' ]
     else
-      []
+      [ "-DBUILD_SHARED_LIBS=ON" ]
     end
   end
 

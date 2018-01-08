@@ -67,17 +67,11 @@ else
 
         append_cflags("-I#{recipe.path}/include -I#{recipe.path}/include/osrm")
 
-        #append_ldflags("-L#{File.expand_path(recipe.work_path)} -losrm")
-
+        # I can’t get OSRM library detection to work properly, so just adding it manually (it’s compiled by us so it ought to work)
         $LDFLAGS << " -Wl,-rpath,#{File.expand_path(recipe.work_path)} -L#{File.expand_path(recipe.work_path)} -losrm"
 
-        #find_library("osrm", nil, File.expand_path(recipe.work_path))
-
-        #LIB_DIRS << recipe.work_path
-        #append_ldflags("-L#{recipe.path}/build -losrm")
-        #$LOCAL_LIBS << "-losrm"
-        #$LOCAL_LIBS << "#{recipe.path}/build/libosrm.a"
-        #$LIBS << " #{File.expand_path(recipe.work_path)}/libosrm.a"
+        # Adding boost_system as OSRM’s dependency
+        $LDFLAGS << " -lboost_system"
     end
 end
 

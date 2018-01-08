@@ -134,10 +134,11 @@ works, you can use following simple script:
 ```ruby
 require "libosrm"
 
-osrm = OSRM.new "map/finland-latest.osrm"
+osrm = LibOSRM::OSRM.new "map/finland-latest.osrm"
 
 # Returns distance by roads as a float, as meters
-distance = osrm.distance_by_roads { latitude: 60.1681473, longitude: 24.9417190 }, { latitude: 60.1694561, longitude: 24.9385663 }
+distance = osrm.distance_by_roads([{ latitude: 60.1681473, longitude: 24.9417190 }, { latitude: 60.1694561, longitude: 24.9385663 }])
+puts distance
 ```
 
 Save this script as test.rb (at root directory of your project) and run it:

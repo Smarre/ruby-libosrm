@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
   s.homepage    = "https://github.com/Smarre/ruby-libosrm"
   s.license     = "MIT"
 
-  s.required_ruby_version "> 2.3.0"
+  s.required_ruby_version = "> 2.3.0"
 
   s.add_runtime_dependency      "mini_portile2",  "~> 2.3"
   s.add_runtime_dependency      "rice",           "~> 2.1"

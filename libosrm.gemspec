@@ -35,7 +35,7 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = "> 2.3.0"
 
-  s.add_runtime_dependency      "mini_portile2",  "~> 2.3"
+  s.add_runtime_dependency      "mini_portile2",  "~> 2.5"
   s.add_runtime_dependency      "rice",           "~> 2.1"
   s.add_development_dependency  "rake",           "~> 12.0"
   s.add_development_dependency  "rake-compiler",  "~> 1.0"
